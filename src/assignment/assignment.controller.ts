@@ -4,21 +4,19 @@ import { Controller, Get, Param } from '@nestjs/common';
 export class AssignmentsController {
 
   
-  // Endpoint for Prime Checker
-  @Get('prime/:number')
-  checkPrime(@Param('number') number: string) {
+
+  // Endpoint for Factorial Calculator
+  @Get('factorial/:number')
+  calculateFactorial(@Param('number') number: string) {
     const num = parseInt(number, 10);
-    const isPrime = (n: number) => {
-      if (n <= 1) return false;
-      if (n <= 3) return true;
-      if (n % 2 === 0 || n % 3 === 0) return false;
-      for (let i = 5; i * i <= n; i += 6) {
-        if (n % i === 0 || n % (i + 2) === 0) return false;
-      }
-      return true;
+
+    const factorial = (n: number): number => {
+      if (n < 0) return -1; // Handle negative numbers
+      if (n === 0 || n === 1) return 1;
+      return n * factorial(n - 1);
     };
 
-    return { isPrime: isPrime(num) };
+    return { factorial: factorial(num) };
   }
 
 
