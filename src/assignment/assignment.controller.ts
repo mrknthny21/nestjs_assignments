@@ -3,20 +3,23 @@ import { Controller, Get, Param } from '@nestjs/common';
 @Controller('assignments')
 export class AssignmentsController {
 
-  // Endpoint for Fibonacci sequence
-  @Get('fibonacci/:n')
-  getFibonacci(@Param('n') n: string) {
-    const num = parseInt(n, 10);
-    const fibonacci = (num: number) => {
-      let a = 0, b = 1, result = [];
-      for (let i = 1; i <= num; i++) {
-        result.push(a);
-        [a, b] = [b, a + b];
+  
+  // Endpoint for Prime Checker
+  @Get('prime/:number')
+  checkPrime(@Param('number') number: string) {
+    const num = parseInt(number, 10);
+    const isPrime = (n: number) => {
+      if (n <= 1) return false;
+      if (n <= 3) return true;
+      if (n % 2 === 0 || n % 3 === 0) return false;
+      for (let i = 5; i * i <= n; i += 6) {
+        if (n % i === 0 || n % (i + 2) === 0) return false;
       }
-      return result;
+      return true;
     };
 
-    return { sequence: fibonacci(num) };
+    return { isPrime: isPrime(num) };
   }
+
 
 } 
